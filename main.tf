@@ -108,19 +108,6 @@ resource "aws_cloudwatch_dashboard" "main" {
         type = "metric",
         properties = {
           metrics = [
-            ["AWS/ApplicationELB", "HTTPCode_Target_5XX_Count", "LoadBalancer", "${module.load_balancer.alb_arn_suffix}"]
-          ],
-          period = 300,
-          stat   = "Sum",
-          region = var.aws_region,
-          title  = "5XX Errors",
-          view   = "stackedArea"
-        }
-      },
-      {
-        type = "metric",
-        properties = {
-          metrics = [
             ["AWS/ApplicationELB", "HealthyHostCount", "LoadBalancer", "${module.load_balancer.alb_arn_suffix}"]
           ],
           period = 300,
@@ -179,19 +166,6 @@ resource "aws_cloudwatch_dashboard" "main" {
         type = "text",
         properties = {
           markdown = "## Auto Scaling Group Metrics"
-        }
-      },
-      {
-        type = "metric",
-        properties = {
-          metrics = [
-            ["AWS/AutoScaling", "GroupInServiceInstances", "AutoScalingGroupName", "${module.autoscaling_group.auto_scaling_group_name}"]
-          ],
-          period = 300,
-          stat   = "Average",
-          region = var.aws_region,
-          title  = "In-Service Instances",
-          view   = "timeSeries"
         }
       }
     ]
